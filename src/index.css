@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #1c2a1e;
+  background: #f3faf3;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  --canvas: #f3faf3;
+  --surface: #ffffff;
+  --surface-muted: #e8f4e9;
+  --surface-strong: #d8ebda;
+  --ink: #1c2a1e;
+  --muted: #647568;
+  --line: #d8e7d9;
+  --green: #2e7d32;
+  --green-strong: #25672a;
+  --coral: #e76654;
+  --shadow: 0 20px 50px rgba(42, 91, 49, 0.10);
+}
+
+.dark {
+  color: #eaf6eb;
+  background: #0f1a12;
+  --canvas: #0f1a12;
+  --surface: #17251a;
+  --surface-muted: #1b3120;
+  --surface-strong: #24432a;
+  --ink: #eaf6eb;
+  --muted: #a3b7a6;
+  --line: #2e4932;
+  --green: #7bc980;
+  --green-strong: #a9e3ad;
+  --coral: #ff9e8e;
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+* { box-sizing: border-box; }
+html { min-width: 320px; scroll-behavior: smooth; }
+body { margin: 0; min-width: 320px; min-height: 100vh; background: var(--canvas); color: var(--ink); }
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid rgba(76, 175, 80, .42); outline-offset: 3px; }
+
+@layer components {
+  .app-surface { background: var(--canvas); color: var(--ink); }
+  .surface-card { background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow); }
+  .muted-copy { color: var(--muted); }
+  .soft-pill { border: 1px solid var(--line); background: var(--surface); border-radius: 999px; }
+  .touch-target { min-width: 44px; min-height: 44px; }
+  .pressable { transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+  .pressable:active { transform: scale(.97); }
+  .field { width: 100%; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); color: var(--ink); padding: 12px 14px; min-height: 48px; }
+  .field::placeholder { color: var(--muted); }
+  .primary-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 48px; border-radius: 16px; padding: 0 18px; color: #fff; background: var(--green); font-weight: 700; box-shadow: 0 10px 22px rgba(46, 125, 50, .22); }
+  .primary-button:hover { background: var(--green-strong); }
+  .secondary-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border-radius: 14px; padding: 0 14px; color: var(--green); background: var(--surface-muted); font-weight: 700; }
+  .ghost-button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border-radius: 14px; padding: 0 12px; color: var(--muted); }
+  .ghost-button:hover { background: var(--surface-muted); color: var(--ink); }
+  .status-ring { display: grid; place-items: center; flex: 0 0 auto; border-radius: 999px; }
+  .sheet-backdrop { position: fixed; z-index: 40; inset: 0; background: rgba(10, 25, 12, .46); backdrop-filter: blur(4px); }
+  .bottom-sheet { position: fixed; z-index: 41; left: 0; right: 0; bottom: 0; max-height: min(92vh, 820px); overflow: auto; border-radius: 28px 28px 0 0; background: var(--surface); color: var(--ink); box-shadow: 0 -20px 70px rgba(0,0,0,.20); padding: 12px 18px calc(24px + env(safe-area-inset-bottom)); }
+  .drag-handle { width: 42px; height: 5px; border-radius: 99px; margin: 2px auto 16px; background: var(--line); }
+  .desktop-only { display: none; }
+}
+
+@media (min-width: 768px) {
+  .bottom-sheet { left: 50%; right: auto; bottom: 50%; width: min(680px, calc(100vw - 48px)); max-height: 90vh; transform: translate(-50%, 50%); border-radius: 28px; padding: 16px 24px 24px; }
+  .desktop-only { display: block; }
+}
+
+@media (min-width: 1024px) {
+  .desktop-only { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
